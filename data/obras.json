@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "titulo": "Abstrações Genômicas",
+    "artista": "Seu Nome",
+    "descricao": "Visualização de padrões em sequências de DNA através de algoritmos de clustering",
+    "imagem": "imagens/obra1.jpg",
+    "ano": 2024,
+    "link_codigo": "https://github.com/seu-usuario/projeto1",
+    "link_projeto": "https://seu-site.com/projeto1",
+    "status": "publicado"
+  },
+  {
+    "id": 2,
+    "titulo": "Fluxo de Expressão Gênica",
+    "artista": "Seu Nome",
+    "descricao": "Mapeamento interativo de níveis de expressão em células de um tecido específico",
+    "imagem": "imagens/obra2.jpg",
+    "ano": 2024,
+    "link_codigo": "https://github.com/seu-usuario/projeto2",
+    "link_projeto": null,
+    "status": "publicado"
+  },
+  {
+    "id": 3,
+    "titulo": "Estruturas Proteicas em 3D",
+    "artista": "Seu Nome",
+    "descricao": "Renderização artística de conformações tridimensionais de proteínas",
+    "imagem": "imagens/obra3.jpg",
+    "ano": 2024,
+    "link_codigo": null,
+    "link_projeto": "https://seu-site.com/proteinas",
+    "status": "publicado"
+  },
+  {
+    "id": 4,
+    "titulo": "Evolução Molecular em Movimento",
+    "artista": "Seu Nome",
+    "descricao": "Animação de divergência evolutiva e mutações ao longo do tempo",
+    "imagem": "imagens/obra4.jpg",
+    "ano": 2024,
+    "link_codigo": "https://github.com/seu-usuario/evolucao",
+    "link_projeto": null,
+    "status": "rascunho"
+  },
+  {
+    "id": 5,
+    "titulo": "Mapa de Interações Moleculares",
+    "artista": "Seu Nome",
+    "descricao": "Rede de interações entre proteínas em uma via metabólica complexa",
+    "imagem": "imagens/obra5.jpg",
+    "ano": 2024,
+    "link_codigo": null,
+    "link_projeto": null,
+    "status": "rascunho"
+  }
+]

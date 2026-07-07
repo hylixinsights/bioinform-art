@@ -1,0 +1,394 @@
+[
+  {
+    "id": 1001,
+    "cat": "scientific",
+    "gen": "circos",
+    "pal": "abyssal",
+    "seed": "chr7-recomb",
+    "ar": 1,
+    "title": "Recombination Landscape of Chromosome 7",
+    "artist": "Mara Okonkwo",
+    "journal": "Nature Genetics",
+    "doi": "10.1038/s41588-025-01847-x",
+    "date": "2026-06-28",
+    "likes": 214,
+    "desc": "Crossover density along chromosome 7 wound into a single ideogram; chords mark long-range linkage disequilibrium blocks that survive across 3,041 genomes.",
+    "comments": [
+      {
+        "who": "D. Rao",
+        "when": "2d",
+        "txt": "The chord weighting reads beautifully — is that LD r²?"
+      },
+      {
+        "who": "Author",
+        "when": "1d",
+        "txt": "It is — thresholded at 0.6 to keep it legible."
+      }
+    ]
+  },
+  {
+    "id": 1002,
+    "cat": "scientific",
+    "gen": "manhattan",
+    "pal": "sediment",
+    "seed": "gwas-height-42",
+    "ar": 1.28,
+    "title": "The Weight of a Single p-Value",
+    "artist": "Yuki Tanaka",
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2026.02.014",
+    "date": "2026-06-19",
+    "likes": 341,
+    "desc": "A height GWAS across twelve chromosomes. The dashed line is genome-wide significance; everything above it earned the right to be called a locus.",
+    "comments": [
+      {
+        "who": "S. Alvarez",
+        "when": "5d",
+        "txt": "That one spike on chr4 is doing a lot of work."
+      },
+      {
+        "who": "N. Haddad",
+        "when": "3d",
+        "txt": "Framed this for the lab wall."
+      },
+      {
+        "who": "E. Petrova",
+        "when": "2d",
+        "txt": "-log10(p) has never looked so calm."
+      }
+    ]
+  },
+  {
+    "id": 1003,
+    "cat": "scientific",
+    "gen": "umap",
+    "pal": "indigo",
+    "seed": "cortex-l5",
+    "ar": 0.86,
+    "title": "Cortical Cell Atlas, Layer V",
+    "artist": "Sofia Alvarez",
+    "journal": "Science",
+    "doi": "10.1126/science.adn9921",
+    "date": "2026-06-11",
+    "likes": 288,
+    "desc": "126,400 single nuclei from motor cortex, embedded. Each cloud is a transcriptional identity; the space between them is everything we still call \"transitional\".",
+    "comments": [
+      {
+        "who": "K. Mensah",
+        "when": "1w",
+        "txt": "The isolation of that top cluster is striking."
+      }
+    ]
+  },
+  {
+    "id": 1004,
+    "cat": "scientific",
+    "gen": "phylo",
+    "pal": "chlorophyll",
+    "seed": "mycel-concord",
+    "ar": 0.92,
+    "title": "Mycelial Concordance",
+    "artist": "Devan Rao",
+    "journal": "Molecular Biology and Evolution",
+    "doi": "10.1093/molbev/msae118",
+    "date": "2026-05-30",
+    "likes": 176,
+    "desc": "A concordance tree of 214 fungal isolates. The green clade is the one that refused to move no matter which gene we rooted on.",
+    "comments": [
+      {
+        "who": "I. Solberg",
+        "when": "1w",
+        "txt": "Concordance factors as colour — clever."
+      }
+    ]
+  },
+  {
+    "id": 1005,
+    "cat": "scientific",
+    "gen": "voronoi",
+    "pal": "oxblood",
+    "seed": "tme-3",
+    "ar": 1.12,
+    "title": "Tumor Microenvironment No. 3",
+    "artist": "Nour Haddad",
+    "journal": "Nature Methods",
+    "doi": "10.1038/s41592-026-02233-1",
+    "date": "2026-05-21",
+    "likes": 402,
+    "desc": "Spatial neighborhoods from imaging mass cytometry, tessellated. Each cell is coloured by its dominant niche; the walls are where two ecologies meet.",
+    "comments": [
+      {
+        "who": "Author",
+        "when": "2w",
+        "txt": "Colours map to niche, not cell type — a common question."
+      },
+      {
+        "who": "H. Kim",
+        "when": "1w",
+        "txt": "This is the best a Voronoi has ever looked."
+      }
+    ]
+  },
+  {
+    "id": 1006,
+    "cat": "scientific",
+    "gen": "network",
+    "pal": "abyssal",
+    "seed": "interactome-dawn",
+    "ar": 1,
+    "title": "Interactome at First Light",
+    "artist": "Elena Petrova",
+    "journal": "PNAS",
+    "doi": "10.1073/pnas.2601934123",
+    "date": "2026-05-09",
+    "likes": 159,
+    "desc": "A yeast protein–protein interaction subnetwork, communities recovered by Leiden clustering. Hubs sized by degree; you can find the proteasome by eye.",
+    "comments": []
+  },
+  {
+    "id": 1007,
+    "cat": "scientific",
+    "gen": "heatmap",
+    "pal": "rust",
+    "seed": "expr-384",
+    "ar": 0.88,
+    "title": "Expression, Clustered (n = 384)",
+    "artist": "Kwame Mensah",
+    "journal": "Genome Biology",
+    "doi": "10.1186/s13059-026-03301-4",
+    "date": "2026-04-27",
+    "likes": 233,
+    "desc": "Bulk RNA-seq across a differentiation time-course, rows and columns reordered by hierarchical clustering. The dendrogram remembers the order the biology chose.",
+    "comments": [
+      {
+        "who": "M. Okonkwo",
+        "when": "3w",
+        "txt": "Row-scaled z-scores? The banding is gorgeous."
+      }
+    ]
+  },
+  {
+    "id": 1008,
+    "cat": "scientific",
+    "gen": "contour",
+    "pal": "verdigris",
+    "seed": "isoform-deep",
+    "ar": 1.18,
+    "title": "Isoforms of the Deep",
+    "artist": "Ingrid Solberg",
+    "journal": "Bioinformatics",
+    "doi": "10.1093/bioinformatics/btae559",
+    "date": "2026-04-15",
+    "likes": 198,
+    "desc": "A long-read isoform density surface for a single gene locus, rendered as a relief map. Each contour is a splice junction the polymerase kept choosing.",
+    "comments": [
+      {
+        "who": "T. Reyes",
+        "when": "1mo",
+        "txt": "Reading exon usage as topography — I love this."
+      }
+    ]
+  },
+  {
+    "id": 1009,
+    "cat": "scientific",
+    "gen": "ribbon",
+    "pal": "ember",
+    "seed": "fold-12",
+    "ar": 0.9,
+    "title": "Fold No. 12 — Large Subunit",
+    "artist": "Hana Kim",
+    "journal": "Nucleic Acids Research",
+    "doi": "10.1093/nar/gkae1177",
+    "date": "2026-03-28",
+    "likes": 264,
+    "desc": "A predicted ribbon trace of a ribosomal protein, warm-lit. Structure is the one figure in biology that was always meant to be sculpture.",
+    "comments": [
+      {
+        "who": "L. Ben-David",
+        "when": "1mo",
+        "txt": "The lighting sells the depth."
+      },
+      {
+        "who": "F. Andersen",
+        "when": "3w",
+        "txt": "pLDDT gradient would be a nice variant."
+      }
+    ]
+  },
+  {
+    "id": 1010,
+    "cat": "scientific",
+    "gen": "circos",
+    "pal": "rust",
+    "seed": "synteny-grass",
+    "ar": 1.05,
+    "title": "Synteny Between Two Grasses",
+    "artist": "Tomás Reyes",
+    "journal": "Nature Plants",
+    "doi": "10.1038/s41477-026-01690-2",
+    "date": "2026-03-12",
+    "likes": 147,
+    "desc": "Collinear blocks between two grass genomes drawn as ribbons across a shared wheel. Whole-genome duplication, thirty million years on, still legible.",
+    "comments": [
+      {
+        "who": "P. Nair",
+        "when": "2mo",
+        "txt": "You can see the ancient tetraploidy right there."
+      }
+    ]
+  },
+  {
+    "id": 1011,
+    "cat": "inspired",
+    "gen": "flow",
+    "pal": "ember",
+    "seed": "stipple-drift",
+    "ar": 0.86,
+    "title": "Stipple Study: Drift",
+    "artist": "Aisha Bello",
+    "tool": "matplotlib + custom Cairo",
+    "github": "https://github.com/aishab/stipple-drift",
+    "date": "2026-06-25",
+    "likes": 311,
+    "desc": "A flow field seeded with nothing but noise, stippled the way the ART in our own wordmark is built. No data — just the grammar of a scatter plot, pushed.",
+    "comments": [
+      {
+        "who": "R. Costa",
+        "when": "3d",
+        "txt": "The density falloff at the edges is so satisfying."
+      }
+    ]
+  },
+  {
+    "id": 1012,
+    "cat": "inspired",
+    "gen": "voronoi",
+    "pal": "abyssal",
+    "seed": "voronoi-nocturne",
+    "ar": 1.15,
+    "title": "Voronoi Nocturne",
+    "artist": "Lior Ben-David",
+    "tool": "scipy.spatial + Pillow",
+    "github": "https://github.com/lbd/voronoi-nocturne",
+    "date": "2026-06-08",
+    "likes": 242,
+    "desc": "The same tessellation that maps cell neighborhoods, run at night with a cold palette and no biology attached. A tool remembering it can also just be beautiful.",
+    "comments": [
+      {
+        "who": "A. Bello",
+        "when": "2w",
+        "txt": "Nocturne is right. This is calm."
+      }
+    ]
+  },
+  {
+    "id": 1013,
+    "cat": "inspired",
+    "gen": "phylo",
+    "pal": "oxblood",
+    "seed": "phylo-nothing",
+    "ar": 0.94,
+    "title": "Phylogeny of Nothing in Particular",
+    "artist": "Mei Lin",
+    "tool": "Biopython / ete3",
+    "github": "https://github.com/meilin/phylo-nothing",
+    "date": "2026-05-27",
+    "likes": 188,
+    "desc": "A tree inferred from randomly generated sequences. It means nothing, and it branches anyway — which is either a warning about our methods or a small poem.",
+    "comments": [
+      {
+        "who": "D. Rao",
+        "when": "2w",
+        "txt": "\"branches anyway\" — ha. Bootstrap this? 😄"
+      }
+    ]
+  },
+  {
+    "id": 1014,
+    "cat": "inspired",
+    "gen": "contour",
+    "pal": "sediment",
+    "seed": "fictional-genome",
+    "ar": 1.1,
+    "title": "Contours for a Fictional Genome",
+    "artist": "Freya Andersen",
+    "tool": "perlin-numpy + Cairo",
+    "github": "",
+    "date": "2026-05-14",
+    "likes": 205,
+    "desc": "A coverage track for a genome that does not exist, rendered as a warm relief. Every peak is a read depth we simply decided to believe in.",
+    "comments": [
+      {
+        "who": "K. Mensah",
+        "when": "3w",
+        "txt": "No repo? I need this method."
+      },
+      {
+        "who": "Author",
+        "when": "2w",
+        "txt": "Cleaning it up — repo soon."
+      }
+    ]
+  },
+  {
+    "id": 1015,
+    "cat": "inspired",
+    "gen": "circos",
+    "pal": "chlorophyll",
+    "seed": "circos-unbound",
+    "ar": 1,
+    "title": "Circos, Unbound",
+    "artist": "Rafael Costa",
+    "tool": "circlize (R)",
+    "github": "https://github.com/rcosta/circos-unbound",
+    "date": "2026-04-30",
+    "likes": 271,
+    "desc": "Circos with no genome to answer to — just arcs, links and the pleasure of closing a plot into a circle. Green because spring.",
+    "comments": [
+      {
+        "who": "H. Kim",
+        "when": "1mo",
+        "txt": "circlize is criminally underused for art."
+      }
+    ]
+  },
+  {
+    "id": 1016,
+    "cat": "inspired",
+    "gen": "umap",
+    "pal": "verdigris",
+    "seed": "latent-bloom",
+    "ar": 0.88,
+    "title": "Latent Bloom",
+    "artist": "Priya Nair",
+    "tool": "UMAP-learn + datashader",
+    "github": "https://github.com/pnair/latent-bloom",
+    "date": "2026-04-08",
+    "likes": 229,
+    "desc": "A UMAP of pure Gaussian blobs, shaded by density. The embedding finds structure that was never there — which is, of course, the whole anxiety of the method.",
+    "comments": [
+      {
+        "who": "S. Alvarez",
+        "when": "1mo",
+        "txt": "The honest version of every embedding figure."
+      }
+    ]
+  },
+  {
+    "id": 1017,
+    "cat": "inspired",
+    "gen": "flow",
+    "pal": "indigo",
+    "seed": "field-notes-vector",
+    "ar": 1.06,
+    "title": "Field Notes (Vector)",
+    "artist": "Jonas Weber",
+    "tool": "numpy vector field + Pillow",
+    "github": "",
+    "date": "2026-03-20",
+    "likes": 163,
+    "desc": "Particles walked through a vector field in indigo and brass, the colours of the emblem. A quiet study in how little you need for motion to read on a still page.",
+    "comments": []
+  }
+]

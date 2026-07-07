@@ -331,6 +331,30 @@ body.admin .card-del{display:inline-flex}
 .login-card .lrow .btn{flex:1;justify-content:center;padding:11px}
 .login-card .lclose{position:absolute;top:14px;right:14px;background:transparent;border:0;color:var(--ink-3);cursor:pointer}
 .login-card .lclose:hover{color:var(--ink)}
+/* ===== MOBILE FULLSCREEN VIEWER ===== */
+.viewer{position:fixed;inset:0;z-index:150;background:var(--paper);display:none;flex-direction:column}
+.viewer.open{display:flex}
+.viewer-top{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;padding:10px 12px;border-bottom:1px solid var(--line-soft)}
+.viewer-top .vclose{width:34px;height:34px;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line-soft);border-radius:50%;background:var(--paper);color:var(--ink-2)}
+.viewer-top .vclose:hover{color:var(--ink);border-color:var(--ink)}
+.viewer-top .vseg button{font-size:.72rem;padding:6px 10px}
+.viewer-count{margin-left:auto;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;color:var(--ink-3)}
+.viewer-track{flex:1;min-height:0;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.viewer-track::-webkit-scrollbar{display:none}
+.vslide{flex:0 0 100%;width:100%;scroll-snap-align:center;display:flex;align-items:center;justify-content:center;padding:16px}
+.vslide img{max-width:100%;max-height:100%;object-fit:contain;border-radius:4px;box-shadow:var(--shadow)}
+.viewer-bottom{display:flex;align-items:center;gap:12px;padding:12px 14px;padding-bottom:calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--line-soft)}
+.viewer-bottom .vmeta{flex:1;min-width:0;font-family:var(--serif);font-size:1rem;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.viewer-bottom .vmeta span{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.viewer-like{flex:0 0 auto}
+.viewer-like.liked svg{fill:var(--accent);stroke:var(--accent)}
+.viewer-details{flex:0 0 auto;padding:11px 18px;font-size:.85rem}
+.viewer-hint{position:absolute;left:50%;bottom:84px;transform:translateX(-50%);font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);background:color-mix(in srgb,var(--paper) 80%,transparent);padding:6px 12px;border-radius:100px;pointer-events:none;transition:opacity .5s}
+.modal{z-index:210}
+.viewer-fab{display:none;position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:140;align-items:center;gap:8px;padding:12px 16px;border-radius:100px;background:var(--ink);color:var(--paper);border:0;font-family:var(--sans);font-size:.82rem;font-weight:500;box-shadow:var(--shadow-lift)}
+.viewer-fab svg{width:17px;height:17px}
+@media(max-width:720px){.viewer-fab{display:inline-flex}}
+@media(prefers-reduced-motion:reduce){.viewer-track{scroll-behavior:auto}}
 
 /* ============ TOAST ============ */
 .toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,120%);z-index:200;
@@ -618,6 +642,19 @@ body.admin .card-del{display:inline-flex}
           </div>
         </div>
 
+        <div class="two">
+          <div class="field">
+            <label for="f-year">Year of creation</label>
+            <input type="number" id="f-year" name="year" min="1900" max="2100" placeholder="e.g. 2019" />
+            <div class="hint">Optional — the image's original year, for older work.</div>
+          </div>
+          <div class="field">
+            <label for="f-link">Link</label>
+            <input type="url" id="f-link" name="link" placeholder="https://…" />
+            <div class="hint">Optional — GitHub, DOI, article, project page, etc.</div>
+          </div>
+        </div>
+
         <div class="field">
           <label>Artwork <span class="req">*</span></label>
           <label class="upload" id="dropzone">
@@ -632,15 +669,21 @@ body.admin .card-del{display:inline-flex}
           <div class="hint">No image handy? Leave it empty and we'll render a placeholder plate from the field for this preview.</div>
         </div>
 
+        <div class="field">
+          <label for="f-imgurl">Image URL / path</label>
+          <input type="text" id="f-imgurl" name="imgurl" placeholder="images/my-artwork.jpg  ·  or  https://…" />
+          <div class="hint">Recommended for publishing: drop the file in the repo's <b>images/</b> folder and reference it here (e.g. <code>images/health-units.png</code>), or paste an external URL. Keeps obras.json small. If set, it takes priority over the upload above.</div>
+        </div>
+
         <div class="field form-only-sci">
-          <label for="f-src">Source article <span class="req">*</span></label>
+          <label for="f-src">Source article</label>
           <input type="url" id="f-src" name="source" placeholder="https://doi.org/10.xxxx/… or journal URL" />
-          <div class="hint">Required for Scientific Art — links the image to its evidence.</div>
+          <div class="hint">Optional — journal URL or DOI behind the image.</div>
           <div class="form-error" data-for="source">Scientific Art needs a source article link.</div>
         </div>
 
         <div class="field form-only-insp">
-          <label for="f-tool">Tool / method <span class="req">*</span></label>
+          <label for="f-tool">Tool / method</label>
           <input type="text" id="f-tool" name="tool" placeholder="e.g. UMAP-learn + datashader" />
           <div class="form-error" data-for="tool">Name the tool or method used.</div>
         </div>
@@ -668,11 +711,11 @@ body.admin .card-del{display:inline-flex}
     <div class="submit-manage reveal" id="submitManage">
       <div class="sm-info">
         <span class="sm-count" id="smCount">0</span>
-        <span class="sm-label">obra(s) que voce adicionou &middot; salvas neste navegador</span>
+        <span class="sm-label">piece(s) in the gallery &middot; edit, then download &amp; commit obras.json to publish</span>
       </div>
       <div class="sm-actions">
-        <button type="button" class="btn btn-primary" id="btnExport">Baixar obras.json <span class="arw">&darr;</span></button>
-        <button type="button" class="btn btn-ghost sm-clear" id="btnClear">Limpar minhas obras</button>
+        <button type="button" class="btn btn-primary" id="btnExport">Download obras.json <span class="arw">&darr;</span></button>
+        <button type="button" class="btn btn-ghost sm-clear" id="btnClear">Discard local edits</button>
       </div>
     </div>
   </div>
@@ -713,6 +756,39 @@ body.admin .card-del{display:inline-flex}
   </div>
 </footer>
 
+<!-- MOBILE FULLSCREEN VIEWER -->
+<div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Visualizador de imagens">
+  <div class="viewer-top">
+    <button class="vclose" id="vClose" type="button" aria-label="Fechar visualizador">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="segment vseg" id="vSort" role="group" aria-label="Ordenar">
+      <button data-vsort="recent" aria-pressed="true" type="button">Data</button>
+      <button data-vsort="liked" aria-pressed="false" type="button">Likes</button>
+      <button data-vsort="discussed" aria-pressed="false" type="button">Coment.</button>
+    </div>
+    <div class="segment vseg" id="vCat" role="group" aria-label="Categoria">
+      <button data-vcat="all" aria-pressed="true" type="button">Todas</button>
+      <button data-vcat="scientific" aria-pressed="false" type="button">Ci&ecirc;ncia</button>
+      <button data-vcat="inspired" aria-pressed="false" type="button">Inspirada</button>
+    </div>
+    <span class="viewer-count" id="vCount">1 / 1</span>
+  </div>
+  <div class="viewer-track" id="vTrack"></div>
+  <div class="viewer-hint" id="vHint">deslize &larr; &rarr;</div>
+  <div class="viewer-bottom">
+    <div class="vmeta" id="vMeta"></div>
+    <button class="icb viewer-like" id="vLike" type="button" aria-label="Curtir"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7.5-4.6-10-9.1C.4 8.5 2 5 5.3 5c2 0 3.3 1.2 4.2 2.6C10.4 6.2 11.7 5 13.7 5 17 5 18.6 8.5 17 11.9 14.5 16.4 12 21 12 21z"/></svg><span>0</span></button>
+    <button class="btn btn-primary viewer-details" id="vDetails" type="button">Details <span class="arw">&rarr;</span></button>
+  </div>
+</div>
+
+<!-- FAB -->
+<button class="viewer-fab" id="viewerFab" type="button" aria-label="Abrir visualizador em tela cheia">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 3H5a2 2 0 00-2 2v3M16 3h3a2 2 0 012 2v3M8 21H5a2 2 0 01-2-2v-3M16 21h3a2 2 0 002-2v-3"/></svg>
+  Tela cheia
+</button>
+
 <!-- LOGIN MODAL -->
 <div class="lmodal" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="lg-title">
   <div class="lback" data-lclose></div>
@@ -720,18 +796,18 @@ body.admin .card-del{display:inline-flex}
     <button class="lclose" data-lclose aria-label="Fechar">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
-    <div class="lcat">Acesso restrito</div>
-    <h3 id="lg-title">Entrar como administrador</h3>
-    <p class="sub">A submissao de novas obras e a exclusao de cards sao restritas a administradores.</p>
+    <div class="lcat">Restricted access</div>
+    <h3 id="lg-title">Admin sign in</h3>
+    <p class="sub">Submitting new pieces and deleting cards are restricted to administrators.</p>
     <form id="login-form" novalidate>
-      <label for="lg-user">Usuario</label>
-      <input type="text" id="lg-user" autocomplete="username" placeholder="seu usuario" />
-      <label for="lg-pass">Senha</label>
+      <label for="lg-user">Username</label>
+      <input type="text" id="lg-user" autocomplete="username" placeholder="username" />
+      <label for="lg-pass">Password</label>
       <input type="password" id="lg-pass" autocomplete="current-password" placeholder="••••••••" />
-      <div class="login-err">Usuario ou senha incorretos.</div>
+      <div class="login-err">Incorrect username or password.</div>
       <div class="lrow">
-        <button type="button" class="btn btn-ghost" data-lclose>Cancelar</button>
-        <button type="submit" class="btn btn-primary">Entrar</button>
+        <button type="button" class="btn btn-ghost" data-lclose>Cancel</button>
+        <button type="submit" class="btn btn-primary">Sign in</button>
       </div>
     </form>
   </div>
@@ -1078,27 +1154,7 @@ function renderPiece(p){
 /* ============ MOCK DATA ============ */
 let UID=1000;
 const D=(s)=>s; // date string passthrough
-const DATA=[
- // ---- Scientific ----
- {id:++UID,cat:'scientific',gen:'circos',pal:'abyssal',seed:'chr7-recomb',ar:1.0,title:'Recombination Landscape of Chromosome 7',artist:'Mara Okonkwo',journal:'Nature Genetics',doi:'10.1038/s41588-025-01847-x',date:'2026-06-28',likes:214,desc:'Crossover density along chromosome 7 wound into a single ideogram; chords mark long-range linkage disequilibrium blocks that survive across 3,041 genomes.',comments:[{who:'D. Rao',when:'2d',txt:'The chord weighting reads beautifully — is that LD r²?'},{who:'Author',when:'1d',txt:'It is — thresholded at 0.6 to keep it legible.'}]},
- {id:++UID,cat:'scientific',gen:'manhattan',pal:'sediment',seed:'gwas-height-42',ar:1.28,title:'The Weight of a Single p-Value',artist:'Yuki Tanaka',journal:'Cell',doi:'10.1016/j.cell.2026.02.014',date:'2026-06-19',likes:341,desc:'A height GWAS across twelve chromosomes. The dashed line is genome-wide significance; everything above it earned the right to be called a locus.',comments:[{who:'S. Alvarez',when:'5d',txt:'That one spike on chr4 is doing a lot of work.'},{who:'N. Haddad',when:'3d',txt:'Framed this for the lab wall.'},{who:'E. Petrova',when:'2d',txt:'-log10(p) has never looked so calm.'}]},
- {id:++UID,cat:'scientific',gen:'umap',pal:'indigo',seed:'cortex-l5',ar:0.86,title:'Cortical Cell Atlas, Layer V',artist:'Sofia Alvarez',journal:'Science',doi:'10.1126/science.adn9921',date:'2026-06-11',likes:288,desc:'126,400 single nuclei from motor cortex, embedded. Each cloud is a transcriptional identity; the space between them is everything we still call "transitional".',comments:[{who:'K. Mensah',when:'1w',txt:'The isolation of that top cluster is striking.'}]},
- {id:++UID,cat:'scientific',gen:'phylo',pal:'chlorophyll',seed:'mycel-concord',ar:0.92,title:'Mycelial Concordance',artist:'Devan Rao',journal:'Molecular Biology and Evolution',doi:'10.1093/molbev/msae118',date:'2026-05-30',likes:176,desc:'A concordance tree of 214 fungal isolates. The green clade is the one that refused to move no matter which gene we rooted on.',comments:[{who:'I. Solberg',when:'1w',txt:'Concordance factors as colour — clever.'}]},
- {id:++UID,cat:'scientific',gen:'voronoi',pal:'oxblood',seed:'tme-3',ar:1.12,title:'Tumor Microenvironment No. 3',artist:'Nour Haddad',journal:'Nature Methods',doi:'10.1038/s41592-026-02233-1',date:'2026-05-21',likes:402,desc:'Spatial neighborhoods from imaging mass cytometry, tessellated. Each cell is coloured by its dominant niche; the walls are where two ecologies meet.',comments:[{who:'Author',when:'2w',txt:'Colours map to niche, not cell type — a common question.'},{who:'H. Kim',when:'1w',txt:'This is the best a Voronoi has ever looked.'}]},
- {id:++UID,cat:'scientific',gen:'network',pal:'abyssal',seed:'interactome-dawn',ar:1.0,title:'Interactome at First Light',artist:'Elena Petrova',journal:'PNAS',doi:'10.1073/pnas.2601934123',date:'2026-05-09',likes:159,desc:'A yeast protein–protein interaction subnetwork, communities recovered by Leiden clustering. Hubs sized by degree; you can find the proteasome by eye.',comments:[]},
- {id:++UID,cat:'scientific',gen:'heatmap',pal:'rust',seed:'expr-384',ar:0.88,title:'Expression, Clustered (n = 384)',artist:'Kwame Mensah',journal:'Genome Biology',doi:'10.1186/s13059-026-03301-4',date:'2026-04-27',likes:233,desc:'Bulk RNA-seq across a differentiation time-course, rows and columns reordered by hierarchical clustering. The dendrogram remembers the order the biology chose.',comments:[{who:'M. Okonkwo',when:'3w',txt:'Row-scaled z-scores? The banding is gorgeous.'}]},
- {id:++UID,cat:'scientific',gen:'contour',pal:'verdigris',seed:'isoform-deep',ar:1.18,title:'Isoforms of the Deep',artist:'Ingrid Solberg',journal:'Bioinformatics',doi:'10.1093/bioinformatics/btae559',date:'2026-04-15',likes:198,desc:'A long-read isoform density surface for a single gene locus, rendered as a relief map. Each contour is a splice junction the polymerase kept choosing.',comments:[{who:'T. Reyes',when:'1mo',txt:'Reading exon usage as topography — I love this.'}]},
- {id:++UID,cat:'scientific',gen:'ribbon',pal:'ember',seed:'fold-12',ar:0.9,title:'Fold No. 12 — Large Subunit',artist:'Hana Kim',journal:'Nucleic Acids Research',doi:'10.1093/nar/gkae1177',date:'2026-03-28',likes:264,desc:'A predicted ribbon trace of a ribosomal protein, warm-lit. Structure is the one figure in biology that was always meant to be sculpture.',comments:[{who:'L. Ben-David',when:'1mo',txt:'The lighting sells the depth.'},{who:'F. Andersen',when:'3w',txt:'pLDDT gradient would be a nice variant.'}]},
- {id:++UID,cat:'scientific',gen:'circos',pal:'rust',seed:'synteny-grass',ar:1.05,title:'Synteny Between Two Grasses',artist:'Tomás Reyes',journal:'Nature Plants',doi:'10.1038/s41477-026-01690-2',date:'2026-03-12',likes:147,desc:'Collinear blocks between two grass genomes drawn as ribbons across a shared wheel. Whole-genome duplication, thirty million years on, still legible.',comments:[{who:'P. Nair',when:'2mo',txt:'You can see the ancient tetraploidy right there.'}]},
- // ---- Inspired ----
- {id:++UID,cat:'inspired',gen:'flow',pal:'ember',seed:'stipple-drift',ar:0.86,title:'Stipple Study: Drift',artist:'Aisha Bello',tool:'matplotlib + custom Cairo',github:'https://github.com/aishab/stipple-drift',date:'2026-06-25',likes:311,desc:'A flow field seeded with nothing but noise, stippled the way the ART in our own wordmark is built. No data — just the grammar of a scatter plot, pushed.',comments:[{who:'R. Costa',when:'3d',txt:'The density falloff at the edges is so satisfying.'}]},
- {id:++UID,cat:'inspired',gen:'voronoi',pal:'abyssal',seed:'voronoi-nocturne',ar:1.15,title:'Voronoi Nocturne',artist:'Lior Ben-David',tool:'scipy.spatial + Pillow',github:'https://github.com/lbd/voronoi-nocturne',date:'2026-06-08',likes:242,desc:'The same tessellation that maps cell neighborhoods, run at night with a cold palette and no biology attached. A tool remembering it can also just be beautiful.',comments:[{who:'A. Bello',when:'2w',txt:'Nocturne is right. This is calm.'}]},
- {id:++UID,cat:'inspired',gen:'phylo',pal:'oxblood',seed:'phylo-nothing',ar:0.94,title:'Phylogeny of Nothing in Particular',artist:'Mei Lin',tool:'Biopython / ete3',github:'https://github.com/meilin/phylo-nothing',date:'2026-05-27',likes:188,desc:'A tree inferred from randomly generated sequences. It means nothing, and it branches anyway — which is either a warning about our methods or a small poem.',comments:[{who:'D. Rao',when:'2w',txt:'"branches anyway" — ha. Bootstrap this? 😄'}]},
- {id:++UID,cat:'inspired',gen:'contour',pal:'sediment',seed:'fictional-genome',ar:1.1,title:'Contours for a Fictional Genome',artist:'Freya Andersen',tool:'perlin-numpy + Cairo',github:'',date:'2026-05-14',likes:205,desc:'A coverage track for a genome that does not exist, rendered as a warm relief. Every peak is a read depth we simply decided to believe in.',comments:[{who:'K. Mensah',when:'3w',txt:'No repo? I need this method.'},{who:'Author',when:'2w',txt:'Cleaning it up — repo soon.'}]},
- {id:++UID,cat:'inspired',gen:'circos',pal:'chlorophyll',seed:'circos-unbound',ar:1.0,title:'Circos, Unbound',artist:'Rafael Costa',tool:'circlize (R)',github:'https://github.com/rcosta/circos-unbound',date:'2026-04-30',likes:271,desc:'Circos with no genome to answer to — just arcs, links and the pleasure of closing a plot into a circle. Green because spring.',comments:[{who:'H. Kim',when:'1mo',txt:'circlize is criminally underused for art.'}]},
- {id:++UID,cat:'inspired',gen:'umap',pal:'verdigris',seed:'latent-bloom',ar:0.88,title:'Latent Bloom',artist:'Priya Nair',tool:'UMAP-learn + datashader',github:'https://github.com/pnair/latent-bloom',date:'2026-04-08',likes:229,desc:'A UMAP of pure Gaussian blobs, shaded by density. The embedding finds structure that was never there — which is, of course, the whole anxiety of the method.',comments:[{who:'S. Alvarez',when:'1mo',txt:'The honest version of every embedding figure.'}]},
- {id:++UID,cat:'inspired',gen:'flow',pal:'indigo',seed:'field-notes-vector',ar:1.06,title:'Field Notes (Vector)',artist:'Jonas Weber',tool:'numpy vector field + Pillow',github:'',date:'2026-03-20',likes:163,desc:'Particles walked through a vector field in indigo and brass, the colours of the emblem. A quiet study in how little you need for motion to read on a still page.',comments:[]}
-];
+let DATA=[];
 
 /* comment count helper */
 function ccount(p){return p.comments?p.comments.length:0;}
@@ -1125,10 +1181,21 @@ function chatSVG(){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentC
 function makeCard(p){
   const card=document.createElement('article');card.className='card';card.dataset.id=p.id;
   const ar=p.ar||1;
-  const srcHref=p.sourceUrl||('https://doi.org/'+p.doi);
-  const srcLine=p.cat==='scientific'
-    ? `<div class="card-src" title="${esc(p.journal)}">◆ ${esc(p.journal)} · <a href="${esc(srcHref)}" target="_blank" rel="noopener">${esc(p.doi)}</a></div>`
-    : `<div class="card-src" title="${esc(p.tool)}">✦ ${esc(p.tool)}${p.github?` · <a href="${esc(p.github)}" target="_blank" rel="noopener">GitHub ↗</a>`:''}</div>`;
+  let srcLine='';
+  if(p.cat==='scientific'){
+    const parts=[];
+    if(p.journal)parts.push('◆ '+esc(p.journal));
+    if(p.doi&&(p.sourceUrl||p.doi))parts.push('<a href="'+esc(p.sourceUrl||('https://doi.org/'+p.doi))+'" target="_blank" rel="noopener">'+esc(p.doi)+'</a>');
+    else if(p.link)parts.push('<a href="'+esc(p.link)+'" target="_blank" rel="noopener">source ↗</a>');
+    if(parts.length)srcLine='<div class="card-src">'+parts.join(' · ')+'</div>';
+  } else {
+    const parts=[];
+    if(p.tool)parts.push('✦ '+esc(p.tool));
+    const gh=p.github||(/(github\.com)/i.test(p.link||'')?p.link:'');
+    if(gh)parts.push('<a href="'+esc(gh)+'" target="_blank" rel="noopener">GitHub ↗</a>');
+    else if(p.link)parts.push('<a href="'+esc(p.link)+'" target="_blank" rel="noopener">link ↗</a>');
+    if(parts.length)srcLine='<div class="card-src">'+parts.join(' · ')+'</div>';
+  }
   const altTxt=esc(`${p.title} — ${p.cat==='scientific'?'a data visualization':'generative artwork'} by ${p.artist}. ${p.desc}`);
   card.innerHTML=`
     <button class="artwork" style="aspect-ratio:${ar};" aria-label="View ${esc(p.title)} by ${esc(p.artist)}">
@@ -1144,13 +1211,13 @@ function makeCard(p){
       <div class="card-foot">
         <button class="icb like ${p.liked?'liked':''}" data-like="${p.id}" aria-pressed="${!!p.liked}" aria-label="Like this piece">${heartSVG()}<span>${p.likes}</span></button>
         <button class="icb comment" data-comment="${p.id}" aria-label="View comments">${chatSVG()}<span>${ccount(p)}</span></button>
-        <button class="card-del" data-del="${p.id}" type="button" aria-label="Excluir esta obra" title="Excluir obra"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2M6 7l1 13a1 1 0 001 1h8a1 1 0 001-1l1-13"/></svg>Excluir</button>
-        <span class="spring">${fmtDate(p.date)}</span>
+        <button class="card-del" data-del="${p.id}" type="button" aria-label="Delete this piece" title="Delete piece"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2M6 7l1 13a1 1 0 001 1h8a1 1 0 001-1l1-13"/></svg>Delete</button>
+        <span class="spring">${p.createdYear?p.createdYear:fmtDate(p.date)}</span>
       </div>
     </div>`;
   const img=card.querySelector('img');
   if(RM){img.src=renderPiece(p);img.classList.add('loaded');}else imgIO.observe(img);
-  card.querySelector('.artwork').addEventListener('click',()=>openModal(p.id));
+  card.querySelector('.artwork').addEventListener('click',()=>{if(isMobile())openViewer(p.id);else openModal(p.id);});
   card.querySelector('.card-title').addEventListener('click',()=>openModal(p.id));
   return card;
 }
@@ -1227,7 +1294,9 @@ function openModal(id){
   let meta='';
   if(p.cat==='scientific'){meta+=`<div><span class="lbl">Source</span> ${esc(p.journal)}</div><div><span class="lbl">${p.sourceUrl?'Link':'DOI'}</span> <a href="${esc(p.sourceUrl||('https://doi.org/'+p.doi))}" target="_blank" rel="noopener">${esc(p.doi)}</a></div>`;}
   else{meta+=`<div><span class="lbl">Tool</span> ${p.tool}</div>`;if(p.github)meta+=`<div><span class="lbl">Code</span> <a href="${p.github}" target="_blank" rel="noopener">${p.github.replace('https://','')}</a></div>`;else meta+=`<div><span class="lbl">Code</span> not shared</div>`;}
-  meta+=`<div><span class="lbl">Posted</span> ${new Date(p.date).toLocaleDateString('en-US',{day:'numeric',month:'long',year:'numeric'})}</div>`;
+  if(p.link)meta+=`<div><span class="lbl">Link</span> <a href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.link.replace(/^https?:\/\//,''))}</a></div>`;
+  if(p.createdYear)meta+=`<div><span class="lbl">Year</span> ${p.createdYear}</div>`;
+  else meta+=`<div><span class="lbl">Posted</span> ${new Date(p.date).toLocaleDateString('en-US',{day:'numeric',month:'long',year:'numeric'})}</div>`;
   document.getElementById('m-meta').innerHTML=meta;
   const like=document.getElementById('m-like');like.classList.toggle('liked',!!p.liked);
   document.getElementById('m-likes').textContent=p.likes;
@@ -1286,6 +1355,8 @@ fileInput.addEventListener('change',e=>handleFile(e.target.files[0]));
 ;['dragleave','drop'].forEach(ev=>dropzone.addEventListener(ev,e=>{e.preventDefault();dropzone.classList.remove('drag');}));
 dropzone.addEventListener('drop',e=>{const f=e.dataTransfer.files[0];if(f)handleFile(f);});
 function handleFile(f){if(!f||!f.type.startsWith('image/'))return;const r=new FileReader();r.onload=()=>{uploadedDataURL=r.result;preview.querySelector('img').src=r.result;preview.style.display='block';};r.readAsDataURL(f);}
+const imgUrlInput=document.getElementById('f-imgurl');
+if(imgUrlInput)imgUrlInput.addEventListener('input',()=>{const v=imgUrlInput.value.trim();if(v){preview.querySelector('img').src=v;preview.style.display='block';}});
 
 function showError(name,show){const el=form.querySelector(`.form-error[data-for="${name}"]`);if(el)el.classList.toggle('show',show);}
 form.addEventListener('submit',e=>{
@@ -1295,19 +1366,26 @@ form.addEventListener('submit',e=>{
   let ok=true;
   showError('title',!title);if(!title)ok=false;
   showError('artist',!artist);if(!artist)ok=false;
-  if(cat==='scientific'){showError('source',!source);if(!source)ok=false;}
-  if(cat==='inspired'){showError('tool',!tool);if(!tool)ok=false;}
+  showError('source',false);showError('tool',false);
   if(!ok){form.querySelector('.form-error.show')?.scrollIntoView({behavior:'smooth',block:'center'});return;}
   const gens=cat==='scientific'?['circos','manhattan','umap','phylo','voronoi','heatmap','network','contour','ribbon']:['flow','voronoi','phylo','contour','circos','umap'];
   const palKeys=Object.keys(PAL);
+  const yearVal=parseInt(document.getElementById('f-year').value,10);
+  const createdYear=(yearVal>=1900&&yearVal<=2100)?yearVal:null;
+  const linkVal=document.getElementById('f-link').value.trim();
   const piece={
-    id:++UID,cat,title,artist,date:new Date().toISOString().slice(0,10),likes:0,comments:[],
+    id:++UID,cat,title,artist,
+    date:createdYear?(createdYear+'-01-01'):new Date().toISOString().slice(0,10),
+    createdYear:createdYear,link:linkVal||null,
+    likes:0,comments:[],
     desc:document.getElementById('f-desc').value.trim()||'A new submission to the gallery.',
     ar:[0.86,0.92,1.0,1.1,1.18][Math.floor(Math.random()*5)]
   };
-  if(cat==='scientific'){piece.journal='Submitted';piece.doi=source.replace(/^https?:\/\/(dx\.)?doi\.org\//,'')||'link';piece.doi=piece.doi.length>34?'source article ↗':piece.doi;piece.sourceUrl=source;}
-  else{piece.tool=tool;piece.github=document.getElementById('f-gh').value.trim();}
-  if(uploadedDataURL){piece.src=uploadedDataURL;}
+  if(cat==='scientific'){piece.journal='Submitted';if(source){let d=source.replace(/^https?:\/\/(dx\.)?doi\.org\//,'');piece.doi=d.length>34?'source article ↗':d;piece.sourceUrl=source;}else if(linkVal){piece.doi='source ↗';piece.sourceUrl=linkVal;}}
+  else{if(tool)piece.tool=tool;const gh=document.getElementById('f-gh').value.trim();piece.github=gh||(/(github\.com)/i.test(linkVal)?linkVal:'');}
+  const imgUrl=document.getElementById('f-imgurl').value.trim();
+  if(imgUrl){piece.src=imgUrl;}
+  else if(uploadedDataURL){piece.src=uploadedDataURL;}
   else{piece.gen=gens[Math.floor(Math.random()*gens.length)];piece.pal=palKeys[Math.floor(Math.random()*palKeys.length)];piece.seed=title+':'+UID;}
   piece.user=true;DATA.unshift(piece);saveSubmissions();
   renderGrid(cat,true);renderSpotlight();renderRankings();updateSpotBtns();updateSubmitManage();
@@ -1359,10 +1437,9 @@ function loadSubmissions(){
     if(!raw)return;
     const arr=JSON.parse(raw);
     if(!Array.isArray(arr)||!arr.length)return;
-    arr.forEach(p=>{p.user=true;delete p._img;});
     const maxId=Math.max(0,...arr.map(p=>+p.id||0));
     if(maxId>UID)UID=maxId;
-    DATA.unshift(...arr);
+    arr.forEach(p=>{if(DATA.some(x=>x.id===p.id))return;p.user=true;delete p._img;DATA.unshift(p);});
   }catch(e){console.warn('Nao foi possivel carregar as obras salvas',e);}
 }
 
@@ -1371,39 +1448,102 @@ function saveSubmissions(){
   try{
     localStorage.setItem(LS_KEY,JSON.stringify(subs));
   }catch(e){
-    toast('Armazenamento cheio - a imagem pode ser grande demais para salvar localmente.');
+    toast('Storage full - the image may be too large to save locally.');
   }
 }
 
 const btnExport=document.getElementById('btnExport');
 const btnClear=document.getElementById('btnClear');
 const smCount=document.getElementById('smCount');
-function updateSubmitManage(){if(smCount)smCount.textContent=DATA.filter(p=>p.user).length;}
+function updateSubmitManage(){if(smCount)smCount.textContent=DATA.length;}
 
 btnExport.addEventListener('click',()=>{
-  const subs=DATA.filter(p=>p.user).map(stripPiece);
-  if(!subs.length){toast('Voce ainda nao adicionou nenhuma obra.');return;}
-  const blob=new Blob([JSON.stringify(subs,null,2)],{type:'application/json'});
+  const all=DATA.map(stripPiece);
+  if(!all.length){toast('The gallery is empty.');return;}
+  const blob=new Blob([JSON.stringify(all,null,2)],{type:'application/json'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');a.href=url;a.download='obras.json';
   document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
-  toast(subs.length+' obra(s) exportada(s) para obras.json.');
+  toast(all.length+' piece(s) exported to obras.json — commit it to publish.');
 });
 
 btnClear.addEventListener('click',()=>{
-  const n=DATA.filter(p=>p.user).length;
-  if(!n){toast('Nenhuma obra sua para limpar.');return;}
-  if(!confirm('Remover '+n+' obra(s) que voce adicionou? As obras da colecao original permanecem.'))return;
-  for(let i=DATA.length-1;i>=0;i--){if(DATA[i].user)DATA.splice(i,1);}
-  saveSubmissions();
-  renderGrid('scientific',true);renderGrid('inspired',true);renderSpotlight();renderRankings();updateSpotBtns();updateSubmitManage();
-  toast('Suas obras foram removidas.');
+  if(!confirm('Discard your local (unpublished) edits and reload the published gallery?'))return;
+  try{localStorage.removeItem(LS_KEY);localStorage.removeItem(HIDDEN_KEY);}catch(e){}
+  location.reload();
 });
 
+/* ============ VISUALIZADOR MOBILE (swipe) ============ */
+function isMobile(){return window.matchMedia('(max-width:720px)').matches;}
+const viewer=document.getElementById('viewer');
+const vTrack=document.getElementById('vTrack');
+const vCount=document.getElementById('vCount');
+const vMeta=document.getElementById('vMeta');
+const vLike=document.getElementById('vLike');
+const vHint=document.getElementById('vHint');
+let viewerSort='recent',viewerCat='all',viewerList=[],viewerIndex=0;
+
+function buildViewer(){
+  let items=DATA.slice();
+  if(viewerCat!=='all')items=items.filter(p=>p.cat===viewerCat);
+  items.sort(sorters[viewerSort]);
+  viewerList=items;
+  vTrack.innerHTML='';
+  items.forEach(p=>{
+    const s=document.createElement('div');s.className='vslide';
+    const img=document.createElement('img');img.alt=p.title;img.loading='lazy';img.src=renderPiece(p);
+    s.appendChild(img);vTrack.appendChild(s);
+  });
+  if(viewerIndex>=items.length)viewerIndex=Math.max(0,items.length-1);
+}
+function gotoIndex(i){viewerIndex=Math.max(0,Math.min(i,viewerList.length-1));vTrack.scrollLeft=viewerIndex*vTrack.clientWidth;updateViewerMeta();}
+function updateViewerMeta(){
+  const p=viewerList[viewerIndex];if(!p){vMeta.textContent='';vCount.textContent='0 / 0';return;}
+  vCount.textContent=(viewerIndex+1)+' / '+viewerList.length;
+  vMeta.innerHTML=esc(p.title)+'<span>'+esc(p.artist)+' &middot; '+(p.cat==='scientific'?'Scientific':'Inspired')+'</span>';
+  vLike.classList.toggle('liked',!!p.liked);
+  vLike.querySelector('span').textContent=p.likes;
+}
+function openViewer(startId){
+  const cur=(startId!=null)?startId:(viewerList[viewerIndex]&&viewerList[viewerIndex].id);
+  buildViewer();
+  const i=cur!=null?viewerList.findIndex(p=>p.id===cur):0;
+  viewer.classList.add('open');document.body.style.overflow='hidden';
+  if(vHint){vHint.style.opacity='1';clearTimeout(openViewer._h);openViewer._h=setTimeout(()=>{vHint.style.opacity='0';},1800);}
+  requestAnimationFrame(()=>{gotoIndex(i>-1?i:0);});
+}
+function closeViewer(){viewer.classList.remove('open');document.body.style.overflow='';}
+function reflow(keepId){
+  const cur=keepId!=null?keepId:(viewerList[viewerIndex]&&viewerList[viewerIndex].id);
+  buildViewer();
+  const i=cur!=null?viewerList.findIndex(p=>p.id===cur):0;
+  gotoIndex(i>-1?i:0);
+}
+let vScrollT;
+vTrack.addEventListener('scroll',()=>{clearTimeout(vScrollT);vScrollT=setTimeout(()=>{
+  const i=Math.round(vTrack.scrollLeft/vTrack.clientWidth);
+  if(i!==viewerIndex&&i>=0&&i<viewerList.length){viewerIndex=i;updateViewerMeta();}
+},60);},{passive:true});
+
+document.getElementById('vClose').addEventListener('click',closeViewer);
+document.getElementById('viewerFab').addEventListener('click',()=>openViewer(null));
+document.getElementById('vDetails').addEventListener('click',()=>{const p=viewerList[viewerIndex];if(p)openModal(p.id);});
+vLike.addEventListener('click',()=>{const p=viewerList[viewerIndex];if(!p)return;p.liked=!p.liked;p.likes+=p.liked?1:-1;syncPiece(p);refreshRankIfNeeded();updateViewerMeta();});
+
+document.getElementById('vSort').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  document.querySelectorAll('#vSort button').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');
+  viewerSort=b.dataset.vsort;reflow();});
+document.getElementById('vCat').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  document.querySelectorAll('#vCat button').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');
+  viewerCat=b.dataset.vcat;reflow();});
+
+window.addEventListener('orientationchange',()=>{setTimeout(()=>{if(viewer.classList.contains('open'))vTrack.scrollLeft=viewerIndex*vTrack.clientWidth;},300);});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&viewer.classList.contains('open')&&!modal.classList.contains('open')&&!loginModal.classList.contains('open'))closeViewer();});
+
 /* ============ ADMIN + EXCLUSAO ============ */
-/* >>> ALTERE usuario e senha aqui. Lembre: em site estatico isto NAO e seguranca real. <<< */
-const ADMIN_USER='hylix_cd7c';
-const ADMIN_PASS='Voronoi-circos-2378';
+/* >>> Change username & password here. Note: on a static site this is NOT real security. <<< */
+const ADMIN_USER='hylix.curator';
+const ADMIN_PASS='Cobalt-isotope-4278';
 const ADMIN_KEY='bioinformart_admin';
 let isAdmin=false;
 
@@ -1411,7 +1551,7 @@ function setAdmin(on){
   isAdmin=on;
   document.body.classList.toggle('admin',on);
   const t=document.getElementById('adminToggle');
-  if(t){t.textContent=on?'Sair':'Admin';t.setAttribute('aria-pressed',on?'true':'false');}
+  if(t){t.textContent=on?'Log out':'Admin';t.setAttribute('aria-pressed',on?'true':'false');}
   try{on?sessionStorage.setItem(ADMIN_KEY,'1'):sessionStorage.removeItem(ADMIN_KEY);}catch(e){}
 }
 function isLogged(){try{return sessionStorage.getItem(ADMIN_KEY)==='1';}catch(e){return false;}}
@@ -1427,12 +1567,12 @@ document.getElementById('login-form').addEventListener('submit',e=>{
   const u=document.getElementById('lg-user').value.trim();
   const p=document.getElementById('lg-pass').value;
   if(u===ADMIN_USER&&p===ADMIN_PASS){
-    setAdmin(true);closeLogin();toast('Modo administrador ativado.');
+    setAdmin(true);closeLogin();toast('Admin mode enabled.');
     setTimeout(()=>document.getElementById('submit').scrollIntoView({behavior:RM?'auto':'smooth',block:'start'}),200);
   }else{loginErr.classList.add('show');}
 });
 document.getElementById('adminToggle').addEventListener('click',()=>{
-  if(isAdmin){setAdmin(false);toast('Voce saiu do modo administrador.');}
+  if(isAdmin){setAdmin(false);toast('Signed out of admin mode.');}
   else openLogin();
 });
 /* qualquer link para #submit abre o login se nao for admin */
@@ -1450,25 +1590,35 @@ function applyHidden(){if(!hiddenSeeds.length)return;for(let i=DATA.length-1;i>=
 function deletePiece(id){
   if(!isAdmin)return;
   const p=byId(id);if(!p)return;
-  if(!confirm('Excluir "'+p.title+'"? Esta acao nao pode ser desfeita.'))return;
+  if(!confirm('Delete "'+p.title+'"? This cannot be undone.'))return;
   const idx=DATA.findIndex(x=>x.id===id);if(idx>-1)DATA.splice(idx,1);
   if(p.user){saveSubmissions();}else{if(hiddenSeeds.indexOf(id)===-1)hiddenSeeds.push(id);saveHidden();}
   renderGrid('scientific',true);renderGrid('inspired',true);renderSpotlight();renderRankings();updateSpotBtns();updateSubmitManage();
   if(typeof modalPiece!=='undefined'&&modalPiece&&modalPiece.id===id)closeModal();
-  toast('Obra excluida.');
+  toast('Piece deleted.');
 }
 document.addEventListener('click',e=>{const d=e.target.closest('[data-del]');if(d){e.preventDefault();e.stopPropagation();deletePiece(+d.dataset.del);}});
 
 /* ============ INIT ============ */
-loadSubmissions();
-loadHidden();applyHidden();
-renderGrid('scientific');
-renderGrid('inspired');
-renderSpotlight();
-renderRankings();
-updateSpotBtns();
-updateSubmitManage();
-if(isLogged())setAdmin(true);
+async function loadPublished(){
+  try{
+    const r=await fetch('obras.json',{cache:'no-store'});
+    if(r.ok){const arr=await r.json();if(Array.isArray(arr))DATA=arr;}
+  }catch(e){console.warn('obras.json not loaded (using empty gallery):',e);}
+  let mx=1000;DATA.forEach(p=>{if(typeof p.id==='number'&&p.id>mx)mx=p.id;});if(mx>UID)UID=mx;
+}
+(async function boot(){
+  await loadPublished();
+  loadSubmissions();
+  loadHidden();applyHidden();
+  renderGrid('scientific');
+  renderGrid('inspired');
+  renderSpotlight();
+  renderRankings();
+  updateSpotBtns();
+  updateSubmitManage();
+  if(isLogged())setAdmin(true);
+})();
 </script>
 </body>
 </html>
