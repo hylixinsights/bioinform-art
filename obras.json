@@ -24,6 +24,12 @@
         "when": "1d",
         "txt": "It is — thresholded at 0.6 to keep it legible."
       }
+    ],
+    "keywords": [
+      "genome",
+      "circos",
+      "synteny",
+      "scientific"
     ]
   },
   {
@@ -56,6 +62,12 @@
         "when": "2d",
         "txt": "-log10(p) has never looked so calm."
       }
+    ],
+    "keywords": [
+      "gwas",
+      "manhattan",
+      "statistics",
+      "scientific"
     ]
   },
   {
@@ -78,6 +90,12 @@
         "when": "1w",
         "txt": "The isolation of that top cluster is striking."
       }
+    ],
+    "keywords": [
+      "single-cell",
+      "umap",
+      "embedding",
+      "scientific"
     ]
   },
   {
@@ -100,6 +118,12 @@
         "when": "1w",
         "txt": "Concordance factors as colour — clever."
       }
+    ],
+    "keywords": [
+      "phylogeny",
+      "tree",
+      "evolution",
+      "scientific"
     ]
   },
   {
@@ -127,6 +151,12 @@
         "when": "1w",
         "txt": "This is the best a Voronoi has ever looked."
       }
+    ],
+    "keywords": [
+      "spatial",
+      "voronoi",
+      "tissue",
+      "scientific"
     ]
   },
   {
@@ -143,7 +173,13 @@
     "date": "2026-05-09",
     "likes": 159,
     "desc": "A yeast protein–protein interaction subnetwork, communities recovered by Leiden clustering. Hubs sized by degree; you can find the proteasome by eye.",
-    "comments": []
+    "comments": [],
+    "keywords": [
+      "network",
+      "interactome",
+      "graph",
+      "scientific"
+    ]
   },
   {
     "id": 1007,
@@ -165,6 +201,12 @@
         "when": "3w",
         "txt": "Row-scaled z-scores? The banding is gorgeous."
       }
+    ],
+    "keywords": [
+      "expression",
+      "heatmap",
+      "clustering",
+      "scientific"
     ]
   },
   {
@@ -187,6 +229,12 @@
         "when": "1mo",
         "txt": "Reading exon usage as topography — I love this."
       }
+    ],
+    "keywords": [
+      "contour",
+      "density",
+      "topography",
+      "scientific"
     ]
   },
   {
@@ -214,6 +262,12 @@
         "when": "3w",
         "txt": "pLDDT gradient would be a nice variant."
       }
+    ],
+    "keywords": [
+      "protein",
+      "structure",
+      "ribbon",
+      "scientific"
     ]
   },
   {
@@ -236,6 +290,12 @@
         "when": "2mo",
         "txt": "You can see the ancient tetraploidy right there."
       }
+    ],
+    "keywords": [
+      "genome",
+      "circos",
+      "synteny",
+      "scientific"
     ]
   },
   {
@@ -258,6 +318,12 @@
         "when": "3d",
         "txt": "The density falloff at the edges is so satisfying."
       }
+    ],
+    "keywords": [
+      "flow-field",
+      "stipple",
+      "generative",
+      "inspired"
     ]
   },
   {
@@ -280,6 +346,12 @@
         "when": "2w",
         "txt": "Nocturne is right. This is calm."
       }
+    ],
+    "keywords": [
+      "spatial",
+      "voronoi",
+      "tissue",
+      "inspired"
     ]
   },
   {
@@ -302,6 +374,12 @@
         "when": "2w",
         "txt": "\"branches anyway\" — ha. Bootstrap this? 😄"
       }
+    ],
+    "keywords": [
+      "phylogeny",
+      "tree",
+      "evolution",
+      "inspired"
     ]
   },
   {
@@ -329,6 +407,12 @@
         "when": "2w",
         "txt": "Cleaning it up — repo soon."
       }
+    ],
+    "keywords": [
+      "contour",
+      "density",
+      "topography",
+      "inspired"
     ]
   },
   {
@@ -351,6 +435,12 @@
         "when": "1mo",
         "txt": "circlize is criminally underused for art."
       }
+    ],
+    "keywords": [
+      "genome",
+      "circos",
+      "synteny",
+      "inspired"
     ]
   },
   {
@@ -373,6 +463,12 @@
         "when": "1mo",
         "txt": "The honest version of every embedding figure."
       }
+    ],
+    "keywords": [
+      "single-cell",
+      "umap",
+      "embedding",
+      "inspired"
     ]
   },
   {
@@ -389,6 +485,12 @@
     "date": "2026-03-20",
     "likes": 163,
     "desc": "Particles walked through a vector field in indigo and brass, the colours of the emblem. A quiet study in how little you need for motion to read on a still page.",
-    "comments": []
+    "comments": [],
+    "keywords": [
+      "flow-field",
+      "stipple",
+      "generative",
+      "inspired"
+    ]
   }
 ]
